@@ -1,10 +1,11 @@
 package com.magalhaes.hexagonal.application.core.usecase;
 
 import com.magalhaes.hexagonal.application.core.domain.Customer;
+import com.magalhaes.hexagonal.application.ports.in.InsertCustomerInputPort;
 import com.magalhaes.hexagonal.application.ports.out.FindAdressByZipCodeOutputPort;
 import com.magalhaes.hexagonal.application.ports.out.InsertCustomerOutputPort;
 
-public class InsertCustomerUseCase {
+public class InsertCustomerUseCase implements InsertCustomerInputPort {
 
 
     private final FindAdressByZipCodeOutputPort findAdressByZipCodeOutputPort;
@@ -18,6 +19,7 @@ public class InsertCustomerUseCase {
         this.insertCustomerOutputPort = insertCustomerOutputPort;
     }
 
+    @Override
     public void insert(Customer customer, String zipCode){
         var adress = findAdressByZipCodeOutputPort.find(zipCode);
         customer.setAdress(adress);
